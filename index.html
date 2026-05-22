@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GoVintage — Timeless Drives, Unforgettable Journeys</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5efe4;
+    --cream-dark: #ebe2d2;
+    --ink: #1a1410;
+    --ink-soft: #4a3f35;
+    --burgundy: #6b1f2a;
+    --burgundy-dark: #4a151d;
+    --gold: #b8924a;
+    --gold-light: #d4ad6a;
+    --line: #d9cdb6;
+    --success: #2d6a4f;
+    --danger: #9d2b2b;
+    --shadow: 0 10px 40px rgba(26, 20, 16, 0.12);
+    --shadow-lg: 0 20px 60px rgba(26, 20, 16, 0.2);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; line-height: 1.2; }
+
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+  input, select, textarea { font-family: inherit; font-size: 1rem; }
+
+  /* ---------- NAV ---------- */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.1rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(245, 239, 228, 0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s, padding 0.3s;
+  }
+  .nav.scrolled { border-bottom-color: var(--line); padding: 0.8rem 3rem; }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    color: var(--ink);
+  }
+  .logo span { color: var(--burgundy); font-style: italic; }
+  .nav-links { display: flex; gap: 2.2rem; align-items: center; }
+  .nav-links a {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    transition: color 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .nav-links a:hover { color: var(--burgundy); }
+  .nav-btn {
+    padding: 0.55rem 1.3rem;
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 2px;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: background 0.2s;
+  }
+  .nav-btn:hover { background: var(--burgundy); }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    height: 100vh;
+    min-height: 640px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(rgba(20, 14, 10, 0.55), rgba(20, 14, 10, 0.78)),
+      url('assets/image-4.jpg') center/cover no-repeat;
+    background-color: #1a1410;
+  }
+  .hero-content { position: relative; z-index: 2; padding: 0 1.5rem; max-width: 900px; }
+  .hero-eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+  .hero h1 {
+    font-size: clamp(2.4rem, 6vw, 4.8rem);
+    margin-bottom: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold-light); font-weight: 400; }
+  .hero p {
+    font-size: 1.15rem;
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    opacity: 0.92;
+    font-weight: 300;
+  }
+  .hero-cta {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: var(--gold);
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .hero-cta:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem; left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.7);
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    z-index: 2;
+  }
+  .hero-scroll::after {
+    content: '';
+    display: block;
+    width: 1px; height: 30px;
+    background: rgba(255,255,255,0.5);
+    margin: 0.8rem auto 0;
+    animation: scrollHint 1.8s ease-in-out infinite;
+  }
+  @keyframes scrollHint { 0%, 100% { transform: scaleY(1); opacity: 0.5; } 50% { transform: scaleY(0.5) translateY(8px); opacity: 1; } }
+
+  /* ---------- SECTIONS ---------- */
+  .section { padding: 6rem 3rem; }
+  .section-narrow { max-width: 1280px; margin: 0 auto; }
+  .section-head { text-align: center; margin-bottom: 4rem; }
+  .section-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--burgundy);
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+  }
+  .section-head h2 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 0.8rem;
+  }
+  .section-head h2 em { font-style: italic; color: var(--burgundy); }
+  .section-head p { color: var(--ink-soft); max-width: 560px; margin: 0 auto; font-size: 1.05rem; }
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 1.2rem auto;
+    position: relative;
+  }
+  .divider::before, .divider::after {
+    content: ''; position: absolute; top: 50%; transform: translateY(-50%);
+    width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
+  }
+  .divider::before { left: -10px; } .divider::after { right: -10px; }
+
+  /* ---------- FLEET GRID ---------- */
+  .fleet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+  }
+  .car-card {
+    background: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+  .car-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+  .car-image {
+    height: 240px;
+    background-size: cover;
+    background-position: center;
+    background-color: #d9cdb6;
+    position: relative;
+  }
+  .car-badge {
+    position: absolute;
+    top: 1rem; left: 1rem;
+    background: rgba(26, 20, 16, 0.85);
+    color: var(--gold-light);
+    padding: 0.35rem 0.8rem;
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-radius: 2px;
+  }
+  .car-body { padding: 1.6rem 1.6rem 1.8rem; flex: 1; display: flex; flex-direction: column; }
+  .car-name { font-size: 1.4rem; margin-bottom: 0.3rem; }
+  .car-desc { color: var(--ink-soft); font-size: 0.92rem; margin: 0.6rem 0 1.4rem; flex: 1; }
+  .car-foot {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 1.2rem; border-top: 1px solid var(--line);
+  }
+  .car-price { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--burgundy); }
+  .car-price small { font-size: 0.75rem; color: var(--ink-soft); font-weight: 400; font-family: 'Inter', sans-serif; }
+  .car-book {
+    padding: 0.6rem 1.3rem;
+    background: var(--ink);
+    color: var(--cream);
+    font-size: 0.78rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-radius: 2px;
+    transition: background 0.2s;
+  }
+  .car-book:hover { background: var(--burgundy); }
+
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  /* ---------- WHY US ---------- */
+  .why { background: var(--ink); color: var(--cream); }
+  .why .section-eyebrow { color: var(--gold-light); }
+  .why h2 { color: #fff; }
+  .why h2 em { color: var(--gold-light); }
+  .why .section-head p { color: rgba(245, 239, 228, 0.7); }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 3rem;
+    text-align: center;
+  }
+  .why-item .why-icon {
+    width: 60px; height: 60px;
+    margin: 0 auto 1.2rem;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem;
+    color: var(--gold-light);
+  }
+  .why-item h3 { color: #fff; font-size: 1.25rem; margin-bottom: 0.6rem; }
+  .why-item p { color: rgba(245, 239, 228, 0.65); font-size: 0.95rem; }
+
+  /* ---------- BOOKING MODAL ---------- */
+  .modal-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(20, 14, 10, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 200;
+    display: none;
+    align-items: center; justify-content: center;
+    padding: 2rem;
+    overflow-y: auto;
+  }
+  .modal-backdrop.active { display: flex; }
+  .modal {
+    background: var(--cream);
+    border-radius: 4px;
+    max-width: 640px;
+    width: 100%;
+    max-height: 92vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: var(--shadow-lg);
+    animation: modalIn 0.3s ease;
+  }
+  .modal-wide { max-width: 1100px; }
+  @keyframes modalIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal-header {
+    padding: 1.8rem 2rem 1.2rem;
+    border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .modal-header h3 { font-size: 1.6rem; }
+  .modal-header h3 em { font-style: italic; color: var(--burgundy); }
+  .modal-close {
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    color: var(--ink-soft);
+    font-size: 1.5rem;
+    transition: background 0.2s;
+  }
+  .modal-close:hover { background: var(--cream-dark); color: var(--burgundy); }
+  .modal-body { padding: 2rem; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.1rem; }
+  .form-group { display: flex; flex-direction: column; margin-bottom: 1.1rem; }
+  .form-group label {
+    font-size: 0.78rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    padding: 0.8rem 0.9rem;
+    border: 1px solid var(--line);
+    background: #fff;
+    border-radius: 2px;
+    color: var(--ink);
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: var(--burgundy);
+  }
+  .form-error {
+    color: var(--danger);
+    font-size: 0.85rem;
+    margin-top: 0.4rem;
+    display: none;
+  }
+  .form-error.show { display: block; }
+
+  .driver-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+  .driver-option {
+    padding: 1.2rem 1rem;
+    border: 1.5px solid var(--line);
+    border-radius: 3px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+    background: #fff;
+  }
+  .driver-option:hover { border-color: var(--gold); }
+  .driver-option.selected {
+    border-color: var(--burgundy);
+    background: rgba(107, 31, 42, 0.04);
+  }
+  .driver-option .driver-icon { font-size: 1.6rem; margin-bottom: 0.5rem; }
+  .driver-option .driver-title { font-weight: 600; font-size: 0.98rem; margin-bottom: 0.2rem; }
+  .driver-option .driver-sub { font-size: 0.78rem; color: var(--ink-soft); }
+
+  .cost-summary {
+    background: rgba(184, 146, 74, 0.08);
+    border: 1px dashed var(--gold);
+    border-radius: 3px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1.5rem;
+  }
+  .cost-line {
+    display: flex; justify-content: space-between;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    padding: 0.3rem 0;
+  }
+  .cost-total {
+    border-top: 1px solid var(--gold);
+    margin-top: 0.6rem;
+    padding-top: 0.7rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .cost-total span:last-child { color: var(--burgundy); }
+
+  .btn-primary {
+    width: 100%;
+    padding: 1rem;
+    background: var(--ink);
+    color: var(--cream);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 2px;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--burgundy); }
+  .btn-secondary {
+    padding: 0.7rem 1.4rem;
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    font-weight: 500;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { background: var(--ink); color: var(--cream); }
+  .btn-danger {
+    padding: 0.5rem 0.9rem;
+    background: transparent;
+    color: var(--danger);
+    border: 1px solid var(--danger);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 500;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .btn-danger:hover { background: var(--danger); color: #fff; }
+
+  /* ---------- SUCCESS ---------- */
+  .success-screen { text-align: center; padding: 2rem 1rem; }
+  .success-icon {
+    width: 80px; height: 80px;
+    margin: 0 auto 1.5rem;
+    background: var(--success);
+    color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem;
+  }
+  .success-screen h3 { font-size: 1.8rem; margin-bottom: 0.8rem; }
+  .success-screen p { color: var(--ink-soft); margin-bottom: 1.8rem; }
+  .booking-ref {
+    display: inline-block;
+    padding: 0.6rem 1.5rem;
+    background: var(--cream-dark);
+    border-radius: 2px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 1.8rem;
+  }
+
+  /* ---------- ADMIN ---------- */
+  .admin-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 2rem;
+  }
+  .admin-tab {
+    padding: 0.9rem 1.6rem;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--ink-soft);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.2s;
+  }
+  .admin-tab.active { color: var(--burgundy); border-bottom-color: var(--burgundy); }
+  .admin-tab:hover { color: var(--ink); }
+
+  .admin-section { display: none; }
+  .admin-section.active { display: block; }
+
+  .admin-fleet-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 100px 140px auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 3px;
+    margin-bottom: 0.6rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .admin-thumb {
+    width: 80px; height: 60px;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--cream-dark);
+    border-radius: 2px;
+  }
+  .admin-info-name { font-weight: 600; font-size: 1rem; margin-bottom: 0.15rem; }
+  .admin-info-year { font-size: 0.82rem; color: var(--ink-soft); }
+  .admin-price-edit {
+    display: flex; align-items: center; gap: 0.3rem;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid var(--line);
+    background: var(--cream);
+    border-radius: 2px;
+  }
+  .admin-price-edit span { color: var(--burgundy); font-weight: 600; font-size: 0.9rem; }
+  .admin-price-edit input {
+    width: 70px; border: none; background: transparent;
+    font-weight: 600; font-size: 0.95rem; color: var(--ink);
+    outline: none;
+  }
+  .admin-actions { display: flex; gap: 0.5rem; }
+
+  .booking-card {
+    background: #fff;
+    border-radius: 3px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 0.8rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    border-left: 3px solid var(--gold);
+  }
+  .booking-card-head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 0.8rem; padding-bottom: 0.8rem;
+    border-bottom: 1px dashed var(--line);
+  }
+  .booking-customer { font-weight: 600; font-size: 1.05rem; }
+  .booking-contact { font-size: 0.85rem; color: var(--ink-soft); margin-top: 0.15rem; }
+  .booking-ref-small {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.85rem;
+    color: var(--gold);
+    letter-spacing: 1px;
+  }
+  .booking-details {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.8rem;
+    font-size: 0.88rem;
+  }
+  .booking-detail-label {
+    font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--ink-soft); margin-bottom: 0.2rem;
+  }
+  .booking-detail-value { font-weight: 500; color: var(--ink); }
+  .driver-pill {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  .driver-pill.self { background: rgba(45, 106, 79, 0.12); color: var(--success); }
+  .driver-pill.chauffeur { background: rgba(184, 146, 74, 0.18); color: #8b6a2a; }
+
+  .admin-add-btn {
+    padding: 0.8rem 1.4rem;
+    background: var(--burgundy);
+    color: #fff;
+    font-size: 0.82rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+    transition: background 0.2s;
+  }
+  .admin-add-btn:hover { background: var(--burgundy-dark); }
+
+  /* ---------- ADMIN LOGIN ---------- */
+  .login-hint {
+    background: rgba(184, 146, 74, 0.1);
+    border: 1px dashed var(--gold);
+    padding: 0.7rem 1rem;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.2rem;
+    border-radius: 2px;
+    text-align: center;
+  }
+  .login-hint code {
+    background: var(--cream-dark);
+    padding: 0.1rem 0.4rem;
+    border-radius: 2px;
+    font-family: 'Courier New', monospace;
+    color: var(--burgundy);
+    font-weight: 600;
+  }
+
+  /* ---------- TOAST ---------- */
+  .toast {
+    position: fixed;
+    top: 5.5rem; right: 2rem;
+    z-index: 300;
+    padding: 0.9rem 1.4rem;
+    background: var(--success);
+    color: #fff;
+    border-radius: 3px;
+    box-shadow: var(--shadow);
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.3s;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateX(0); }
+  .toast.danger { background: var(--danger); }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    background: var(--ink);
+    color: rgba(245, 239, 228, 0.6);
+    padding: 4rem 3rem 2rem;
+    text-align: center;
+  }
+  footer .logo { color: var(--cream); display: block; margin-bottom: 1rem; }
+  footer p { font-size: 0.9rem; margin-bottom: 0.5rem; }
+  footer .footer-contact {
+    display: flex; justify-content: center; gap: 2rem;
+    margin: 1.5rem 0; flex-wrap: wrap;
+    font-size: 0.88rem;
+  }
+  footer .copyright {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(245, 239, 228, 0.1);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 768px) {
+    .nav, .nav.scrolled { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+    .nav-links a:not(.nav-btn) { display: none; }
+    .section { padding: 4rem 1.5rem; }
+    .form-row, .driver-options { grid-template-columns: 1fr; }
+    .admin-fleet-row { grid-template-columns: 1fr; text-align: center; }
+    .admin-thumb { margin: 0 auto; }
+    .booking-details { grid-template-columns: 1fr 1fr; }
+    footer { padding: 3rem 1.5rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#top" class="logo">Go<span>Vintage</span></a>
+  <div class="nav-links">
+    <a href="#fleet">Fleet</a>
+    <a href="#why">Why Us</a>
+    <a href="#contact">Contact</a>
+    <a href="#" class="nav-btn" onclick="openAdminLogin(event)">Admin</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Wedding · Baraat · Reception</div>
+    <h1>Your wedding deserves a <em>classic</em>.</h1>
+    <p>Hand-restored vintage motor cars — Rolls-Royces, Bentleys, Cadillacs and Ambassadors — to carry the bride, groom, and baraat in timeless style.</p>
+    <a href="#fleet" class="hero-cta">View the Fleet</a>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- FLEET -->
+<section class="section" id="fleet">
+  <div class="section-narrow">
+    <div class="section-head">
+      <div class="section-eyebrow">Our Collection</div>
+      <h2>The <em>Virtual Garage</em></h2>
+      <div class="divider"></div>
+      <p>Every car in our collection is hand-restored and wedding-ready — polished to a mirror finish, decorated to your theme, and chauffeured by uniformed drivers who know how to make an entrance.</p>
+    </div>
+    <div class="fleet-grid" id="fleetGrid"></div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="section why" id="why">
+  <div class="section-narrow">
+    <div class="section-head">
+      <div class="section-eyebrow">The GoVintage Promise</div>
+      <h2>Crafted for <em>connoisseurs</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-icon">❀</div>
+        <h3>Wedding-Ready</h3>
+        <p>Floral garlands, ribbons, and "Just Married" signage — decorated to match your theme, at no extra cost.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">♛</div>
+        <h3>Uniformed Chauffeurs</h3>
+        <p>Or take the wheel yourself. Our drivers come in crisp livery — caps, gloves, the works.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">✦</div>
+        <h3>Transparent Pricing</h3>
+        <p>Flat daily rates. No fuel surcharges, no last-minute "decoration fees" — what you see is what you pay.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">⌘</div>
+        <h3>Effortless Booking</h3>
+        <p>No accounts. No spam calls. A quick form, and we'll have your classic at the venue, polished and ready.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT FOOTER -->
+<footer id="contact">
+  <a href="#" class="logo">Go<span style="color: var(--gold-light)">Vintage</span></a>
+  <p style="max-width: 460px; margin: 0.5rem auto 0;">Timeless drives for your most unforgettable day.</p>
+  <div class="footer-contact">
+    <span>📍 14 Heritage Lane, Bengaluru</span>
+    <span>✉ hello@govintage.in</span>
+    <span>☎ +91 98XXX XXX XX</span>
+  </div>
+  <div class="copyright">© 2026 GoVintage Motors — All rights reserved.</div>
+</footer>
+
+<!-- BOOKING MODAL -->
+<div class="modal-backdrop" id="bookingModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Reserve Your <em>Classic</em></h3>
+      <button class="modal-close" onclick="closeModal('bookingModal')">×</button>
+    </div>
+    <div class="modal-body">
+      <form id="bookingForm" onsubmit="submitBooking(event)">
+        <input type="hidden" id="bookingCarId" />
+
+        <div class="form-group">
+          <label>Selected Vehicle</label>
+          <div style="padding: 0.8rem; background: var(--cream-dark); border-radius: 2px; font-weight: 600;" id="selectedCarDisplay">—</div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="custName" required />
+          </div>
+          <div class="form-group">
+            <label>Phone *</label>
+            <input type="tel" id="custPhone" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" id="custEmail" required />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Pickup Date *</label>
+            <input type="date" id="pickupDate" required onchange="updateCost()" />
+          </div>
+          <div class="form-group">
+            <label>Return Date *</label>
+            <input type="date" id="returnDate" required onchange="updateCost()" />
+            <div class="form-error" id="dateError">Return date must be after pickup date.</div>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 0.5rem;">
+          <label>Driver Preference *</label>
+        </div>
+        <div class="driver-options">
+          <div class="driver-option selected" data-driver="self" onclick="selectDriver('self')">
+            <div class="driver-icon">🚗</div>
+            <div class="driver-title">Self-Drive</div>
+            <div class="driver-sub">I'll take the wheel</div>
+          </div>
+          <div class="driver-option" data-driver="chauffeur" onclick="selectDriver('chauffeur')">
+            <div class="driver-icon">🎩</div>
+            <div class="driver-title">With Chauffeur</div>
+            <div class="driver-sub">+ ₹2,500 / day</div>
+          </div>
+        </div>
+
+        <div class="cost-summary" id="costSummary" style="display:none">
+          <div class="cost-line"><span>Daily rate × <span id="costDays">0</span> days</span><span>₹<span id="costBase">0</span></span></div>
+          <div class="cost-line" id="costDriverLine" style="display:none"><span>Chauffeur service</span><span>₹<span id="costDriver">0</span></span></div>
+          <div class="cost-line cost-total"><span>Estimated Total</span><span>₹<span id="costTotal">0</span></span></div>
+        </div>
+
+        <button type="submit" class="btn-primary">Confirm Reservation</button>
+      </form>
+
+      <!-- success state -->
+      <div id="bookingSuccess" style="display:none">
+        <div class="success-screen">
+          <div class="success-icon">✓</div>
+          <h3>Reservation Received</h3>
+          <p>Thank you for choosing GoVintage. Your booking has been logged successfully.</p>
+          <div class="booking-ref">Ref: <span id="successRef">—</span></div>
+          <div>
+            <button class="btn-secondary" onclick="closeModal('bookingModal')">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN MODAL -->
+<div class="modal-backdrop" id="adminLoginModal">
+  <div class="modal" style="max-width: 420px;">
+    <div class="modal-header">
+      <h3>Admin <em>Access</em></h3>
+      <button class="modal-close" onclick="closeModal('adminLoginModal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="login-hint">Demo password: <code>vintage2026</code></div>
+      <form onsubmit="adminLogin(event)">
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="adminPassword" required autofocus />
+          <div class="form-error" id="loginError">Incorrect password.</div>
+        </div>
+        <button type="submit" class="btn-primary">Sign In</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN DASHBOARD MODAL -->
+<div class="modal-backdrop" id="adminDashboard">
+  <div class="modal modal-wide">
+    <div class="modal-header">
+      <h3>Admin <em>Dashboard</em></h3>
+      <div style="display:flex; gap: 0.8rem; align-items: center;">
+        <button class="btn-secondary" onclick="adminLogout()">Sign Out</button>
+        <button class="modal-close" onclick="closeModal('adminDashboard')">×</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="fleet" onclick="switchTab('fleet')">Fleet Management</button>
+        <button class="admin-tab" data-tab="bookings" onclick="switchTab('bookings')">Bookings <span id="bookingCount" style="opacity:0.6">(0)</span></button>
+      </div>
+
+      <!-- Fleet management -->
+      <div class="admin-section active" id="tab-fleet">
+        <button class="admin-add-btn" onclick="openAddCar()">+ Add New Vehicle</button>
+        <div id="adminFleetList"></div>
+      </div>
+
+      <!-- Bookings -->
+      <div class="admin-section" id="tab-bookings">
+        <div id="adminBookingsList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD/EDIT CAR MODAL -->
+<div class="modal-backdrop" id="carEditModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="carEditTitle">Add <em>Vehicle</em></h3>
+      <button class="modal-close" onclick="closeModal('carEditModal')">×</button>
+    </div>
+    <div class="modal-body">
+      <form onsubmit="saveCar(event)">
+        <input type="hidden" id="editCarId" />
+        <div class="form-row">
+          <div class="form-group">
+            <label>Model / Name *</label>
+            <input type="text" id="editCarName" required placeholder="e.g. Chevrolet Bel Air" />
+          </div>
+          <div class="form-group">
+            <label>Year *</label>
+            <input type="number" id="editCarYear" required min="1900" max="2000" placeholder="1957" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Description *</label>
+          <textarea id="editCarDesc" required rows="2" style="resize: vertical;" placeholder="A brief, evocative description"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Daily Rate (₹) *</label>
+            <input type="number" id="editCarRate" required min="0" placeholder="15000" />
+          </div>
+          <div class="form-group">
+            <label>Photo</label>
+            <input type="file" id="editCarPhoto" accept="image/*" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Or paste image URL</label>
+          <input type="text" id="editCarPhotoUrl" placeholder="https://..." />
+        </div>
+        <button type="submit" class="btn-primary">Save Vehicle</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ---------- STATE ----------
+const ADMIN_PASSWORD = 'vintage2026';
+const CHAUFFEUR_RATE = 2500;
+const SCHEMA_VERSION = 6; // bump to force reseed when seed data changes
+
+// ---------- VINTAGE CAR SVG ILLUSTRATIONS ----------
+function mixColors(c1, c2, ratio) {
+  const p = h => [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
+  const a = p(c1), b = p(c2);
+  const r = a.map((v, i) => Math.round(v * (1 - ratio) + b[i] * ratio));
+  return '#' + r.map(v => v.toString(16).padStart(2, '0')).join('');
+}
+
+function makeCarImage({ body = '#e8dcc4', type = 'sedan', accent = '#c9a76a' } = {}) {
+  const bodyDark = mixColors(body, '#000000', 0.28);
+  const bodyLight = mixColors(body, '#ffffff', 0.12);
+  const isDark = (parseInt(body.slice(1,3),16) + parseInt(body.slice(3,5),16) + parseInt(body.slice(5,7),16)) / 3 < 120;
+  const trim = isDark ? mixColors(body, '#ffffff', 0.35) : bodyDark;
+
+  const wheels = `
+    <g>
+      <circle cx="125" cy="180" r="36" fill="#0a0805"/>
+      <circle cx="125" cy="180" r="30" fill="#ffffff" opacity="0.92"/>
+      <circle cx="125" cy="180" r="22" fill="#1a1410"/>
+      <circle cx="125" cy="180" r="11" fill="${accent}"/>
+      <circle cx="125" cy="180" r="3" fill="#3a2c1a"/>
+      <circle cx="495" cy="180" r="36" fill="#0a0805"/>
+      <circle cx="495" cy="180" r="30" fill="#ffffff" opacity="0.92"/>
+      <circle cx="495" cy="180" r="22" fill="#1a1410"/>
+      <circle cx="495" cy="180" r="11" fill="${accent}"/>
+      <circle cx="495" cy="180" r="3" fill="#3a2c1a"/>
+    </g>`;
+
+  const sedan = `
+    <path d="M 0 155 L 0 115 C 0 104 6 99 20 96 L 80 92 L 100 56 C 106 38 124 30 152 30 L 358 30 C 388 30 406 40 424 66 L 456 92 L 558 100 C 582 104 596 116 600 134 L 600 158 Z"
+          fill="url(#carBody)" stroke="${bodyDark}" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M 105 92 L 122 60 C 128 46 144 40 160 40 L 358 40 C 378 40 390 48 406 68 L 424 92 Z"
+          fill="#0d0a07" opacity="0.88"/>
+    <path d="M 105 92 L 122 60 C 128 46 144 40 160 40 L 250 40 L 250 92 Z"
+          fill="url(#glassShine)" opacity="0.35"/>
+    <rect x="258" y="44" width="4" height="48" fill="${bodyDark}"/>
+    <line x1="266" y1="105" x2="266" y2="156" stroke="${bodyDark}" stroke-width="1" opacity="0.45"/>
+    <rect x="288" y="124" width="22" height="2.5" fill="${accent}" rx="1"/>
+    <rect x="178" y="124" width="22" height="2.5" fill="${accent}" rx="1"/>
+    <rect x="4" y="126" width="592" height="3" fill="${accent}" opacity="0.95"/>
+    <ellipse cx="575" cy="120" rx="12" ry="10" fill="#fff5d4"/>
+    <circle cx="575" cy="120" r="4" fill="#ffffff"/>
+    <rect x="552" y="132" width="42" height="16" fill="${trim}" stroke="${accent}" stroke-width="0.5" rx="1"/>
+    <line x1="560" y1="132" x2="560" y2="148" stroke="${accent}" stroke-width="1.5"/>
+    <line x1="568" y1="132" x2="568" y2="148" stroke="${accent}" stroke-width="1.5"/>
+    <line x1="576" y1="132" x2="576" y2="148" stroke="${accent}" stroke-width="1.5"/>
+    <line x1="584" y1="132" x2="584" y2="148" stroke="${accent}" stroke-width="1.5"/>
+    <rect x="538" y="152" width="60" height="6" fill="${accent}" rx="2"/>
+    <rect x="2" y="152" width="42" height="6" fill="${accent}" rx="2"/>
+    ${wheels}`;
+
+  const convertible = `
+    <path d="M 0 155 L 0 118 C 0 108 6 102 20 99 L 92 94 L 112 76 C 122 66 134 60 150 60 L 200 60 L 215 92 L 410 92 L 425 76 C 432 68 444 64 458 65 L 558 100 C 582 104 596 116 600 134 L 600 158 Z"
+          fill="url(#carBody)" stroke="${bodyDark}" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M 116 94 L 132 68 C 140 58 152 52 165 52 L 200 52 L 205 94 Z"
+          fill="#0d0a07" opacity="0.85"/>
+    <path d="M 116 94 L 132 68 C 140 58 152 52 165 52 L 180 52 L 180 94 Z"
+          fill="url(#glassShine)" opacity="0.5"/>
+    <path d="M 215 92 L 230 78 Q 320 64 400 80 L 410 92 Z" fill="${bodyDark}" opacity="0.7"/>
+    <line x1="270" y1="105" x2="270" y2="156" stroke="${bodyDark}" stroke-width="1" opacity="0.45"/>
+    <rect x="298" y="126" width="22" height="2.5" fill="${accent}" rx="1"/>
+    <rect x="4" y="128" width="592" height="3" fill="${accent}" opacity="0.95"/>
+    <ellipse cx="575" cy="122" rx="12" ry="10" fill="#fff5d4"/>
+    <circle cx="575" cy="122" r="4" fill="#ffffff"/>
+    <rect x="552" y="134" width="42" height="16" fill="${trim}" stroke="${accent}" stroke-width="0.5" rx="1"/>
+    <line x1="560" y1="134" x2="560" y2="150" stroke="${accent}" stroke-width="1.5"/>
+    <line x1="568" y1="134" x2="568" y2="150" stroke="${accent}" stroke-width="1.5"/>
+    <line x1="576" y1="134" x2="576" y2="150" stroke="${accent}" stroke-width="1.5"/>
+    <line x1="584" y1="134" x2="584" y2="150" stroke="${accent}" stroke-width="1.5"/>
+    <rect x="538" y="154" width="60" height="6" fill="${accent}" rx="2"/>
+    <rect x="2" y="154" width="42" height="6" fill="${accent}" rx="2"/>
+    ${wheels}`;
+
+  const car = type === 'convertible' ? convertible : sedan;
+
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#3d2e22"/>
+        <stop offset="55%" stop-color="#2a1f17"/>
+        <stop offset="100%" stop-color="#15100c"/>
+      </linearGradient>
+      <radialGradient id="spotlight" cx="50%" cy="72%" r="55%">
+        <stop offset="0%" stop-color="#8a6838" stop-opacity="0.42"/>
+        <stop offset="100%" stop-color="transparent"/>
+      </radialGradient>
+      <linearGradient id="carBody" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="${bodyLight}"/>
+        <stop offset="50%" stop-color="${body}"/>
+        <stop offset="100%" stop-color="${bodyDark}"/>
+      </linearGradient>
+      <linearGradient id="glassShine" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="0.45"/>
+        <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <rect width="800" height="480" fill="url(#bgGrad)"/>
+    <rect width="800" height="480" fill="url(#spotlight)"/>
+    <line x1="60" y1="365" x2="740" y2="365" stroke="${accent}" stroke-width="0.5" opacity="0.35"/>
+    <ellipse cx="400" cy="368" rx="295" ry="14" fill="#000" opacity="0.55"/>
+    <g transform="translate(100, 160)">${car}</g>
+  </svg>`;
+
+  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+}
+
+const SEED_CARS = [
+  {
+    id: 'c1', name: 'MG TF Roadster', year: 1954,
+    desc: 'The bride\'s dream getaway. A creamy white open-top roadster with chrome wire wheels — pairs beautifully with a cascade of fresh blooms.',
+    rate: 24000,
+    photo: 'assets/image-4.jpg'
+  },
+  {
+    id: 'c2', name: 'Mercedes-Benz 230 Cabriolet', year: 1937,
+    desc: 'Pre-war German elegance at its finest. Pearl white bodywork, twin headlamps, and that unmistakable upright grille — the groom\'s grand entrance.',
+    rate: 32000,
+    photo: 'assets/images-2.jpeg'
+  },
+  {
+    id: 'c3', name: 'Lagonda 14/60 Tourer', year: 1928,
+    desc: 'A jewel-blue British tourer from the roaring twenties. Long bonnet, sweeping fenders, and exposed running boards — for the couple who love a touch of Gatsby.',
+    rate: 28000,
+    photo: 'assets/image-1.jpeg'
+  },
+  {
+    id: 'c4', name: 'Ford Model A Town Sedan', year: 1931,
+    desc: 'A burnt-orange American classic with black fenders, a side-mounted spare, and old-Hollywood charm. A standout entrance for the baraat.',
+    rate: 21000,
+    photo: 'assets/image-3.jpeg'
+  },
+  {
+    id: 'c5', name: 'Ford Model T Tourer', year: 1925,
+    desc: 'A genuine pre-independence relic in soft powder blue. Hand-painted monogram on the door, foggy-morning charm — for couples who want history, not theatre.',
+    rate: 18000,
+    photo: 'assets/pexels-aceofnet-3468456-5184039.jpg'
+  },
+  {
+    id: 'c6', name: 'Chevrolet Bel Air', year: 1957,
+    desc: 'The most photographed American car ever made. Sky-blue paintwork, whitewall tyres, twin tail-fins — pure Elvis-era romance.',
+    rate: 22000,
+    photo: 'assets/pexels-yousif-93674273-11638940.jpg',
+    photoPos: 'center 75%'
+  }
+];
+
+let cars = [];
+let bookings = [];
+let currentDriver = 'self';
+let currentCarId = null;
+
+// ---------- STORAGE ----------
+function loadData() {
+  const storedVersion = parseInt(localStorage.getItem('gv_version'), 10);
+  if (storedVersion !== SCHEMA_VERSION) {
+    localStorage.removeItem('gv_cars');
+    localStorage.removeItem('gv_bookings');
+    localStorage.setItem('gv_version', SCHEMA_VERSION);
+  }
+  const c = localStorage.getItem('gv_cars');
+  const b = localStorage.getItem('gv_bookings');
+  cars = c ? JSON.parse(c) : [...SEED_CARS];
+  bookings = b ? JSON.parse(b) : [];
+  if (!c) saveCars();
+}
+function saveCars() { localStorage.setItem('gv_cars', JSON.stringify(cars)); }
+function saveBookings() { localStorage.setItem('gv_bookings', JSON.stringify(bookings)); }
+
+// ---------- RENDER FLEET (public) ----------
+function renderFleet() {
+  const grid = document.getElementById('fleetGrid');
+  if (!cars.length) {
+    grid.innerHTML = '<div class="empty-state">Our garage is being refreshed. Please check back soon.</div>';
+    return;
+  }
+  grid.innerHTML = cars.map(car => `
+    <div class="car-card">
+      <div class="car-image" style="background-image: url('${escapeAttr(car.photo)}'); background-position: ${escapeAttr(car.photoPos || 'center')}">
+        <div class="car-badge">${car.year}</div>
+      </div>
+      <div class="car-body">
+        <h3 class="car-name">${escapeHtml(car.name)}</h3>
+        <p class="car-desc">${escapeHtml(car.desc)}</p>
+        <div class="car-foot">
+          <div class="car-price">₹${formatNum(car.rate)} <small>/ day</small></div>
+          <button class="car-book" onclick="openBooking('${car.id}')">Book Now</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ---------- BOOKING FLOW ----------
+function openBooking(carId) {
+  const car = cars.find(c => c.id === carId);
+  if (!car) return;
+  currentCarId = carId;
+  document.getElementById('bookingCarId').value = carId;
+  document.getElementById('selectedCarDisplay').textContent = `${car.year} ${car.name} — ₹${formatNum(car.rate)}/day`;
+  document.getElementById('bookingForm').style.display = '';
+  document.getElementById('bookingForm').reset();
+  document.getElementById('bookingSuccess').style.display = 'none';
+  selectDriver('self');
+  // set min dates to today
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('pickupDate').min = today;
+  document.getElementById('returnDate').min = today;
+  document.getElementById('costSummary').style.display = 'none';
+  openModal('bookingModal');
+}
+
+function selectDriver(type) {
+  currentDriver = type;
+  document.querySelectorAll('.driver-option').forEach(el => {
+    el.classList.toggle('selected', el.dataset.driver === type);
+  });
+  updateCost();
+}
+
+function updateCost() {
+  const pickup = document.getElementById('pickupDate').value;
+  const ret = document.getElementById('returnDate').value;
+  const err = document.getElementById('dateError');
+  err.classList.remove('show');
+
+  if (!pickup || !ret) { document.getElementById('costSummary').style.display = 'none'; return; }
+  const pDate = new Date(pickup);
+  const rDate = new Date(ret);
+  if (rDate <= pDate) {
+    err.classList.add('show');
+    document.getElementById('costSummary').style.display = 'none';
+    return;
+  }
+  const days = Math.ceil((rDate - pDate) / (1000 * 60 * 60 * 24));
+  const car = cars.find(c => c.id === currentCarId);
+  if (!car) return;
+  const base = days * car.rate;
+  const driverCost = currentDriver === 'chauffeur' ? days * CHAUFFEUR_RATE : 0;
+  const total = base + driverCost;
+
+  document.getElementById('costDays').textContent = days;
+  document.getElementById('costBase').textContent = formatNum(base);
+  document.getElementById('costDriverLine').style.display = driverCost ? '' : 'none';
+  document.getElementById('costDriver').textContent = formatNum(driverCost);
+  document.getElementById('costTotal').textContent = formatNum(total);
+  document.getElementById('costSummary').style.display = '';
+}
+
+function submitBooking(e) {
+  e.preventDefault();
+  const pickup = document.getElementById('pickupDate').value;
+  const ret = document.getElementById('returnDate').value;
+  if (new Date(ret) <= new Date(pickup)) {
+    document.getElementById('dateError').classList.add('show');
+    return;
+  }
+  const car = cars.find(c => c.id === currentCarId);
+  const days = Math.ceil((new Date(ret) - new Date(pickup)) / (1000 * 60 * 60 * 24));
+  const base = days * car.rate;
+  const driverCost = currentDriver === 'chauffeur' ? days * CHAUFFEUR_RATE : 0;
+
+  const ref = 'GV' + Date.now().toString().slice(-7);
+  const booking = {
+    ref,
+    carId: car.id,
+    carName: car.name,
+    carYear: car.year,
+    customer: document.getElementById('custName').value.trim(),
+    phone: document.getElementById('custPhone').value.trim(),
+    email: document.getElementById('custEmail').value.trim(),
+    pickup, return: ret,
+    days,
+    driver: currentDriver,
+    rate: car.rate,
+    total: base + driverCost,
+    createdAt: new Date().toISOString()
+  };
+  bookings.unshift(booking);
+  saveBookings();
+
+  // silent confirmation - just show success
+  document.getElementById('bookingForm').style.display = 'none';
+  document.getElementById('successRef').textContent = ref;
+  document.getElementById('bookingSuccess').style.display = '';
+}
+
+// ---------- ADMIN ----------
+function openAdminLogin(e) {
+  if (e) e.preventDefault();
+  document.getElementById('adminPassword').value = '';
+  document.getElementById('loginError').classList.remove('show');
+  openModal('adminLoginModal');
+}
+
+function adminLogin(e) {
+  e.preventDefault();
+  const pwd = document.getElementById('adminPassword').value;
+  if (pwd !== ADMIN_PASSWORD) {
+    document.getElementById('loginError').classList.add('show');
+    return;
+  }
+  closeModal('adminLoginModal');
+  openAdminDashboard();
+}
+
+function adminLogout() {
+  closeModal('adminDashboard');
+  toast('Signed out');
+}
+
+function openAdminDashboard() {
+  switchTab('fleet');
+  renderAdminFleet();
+  renderAdminBookings();
+  openModal('adminDashboard');
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.admin-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  document.querySelectorAll('.admin-section').forEach(s => s.classList.toggle('active', s.id === 'tab-' + tab));
+}
+
+function renderAdminFleet() {
+  const list = document.getElementById('adminFleetList');
+  if (!cars.length) {
+    list.innerHTML = '<div class="empty-state">No vehicles in the fleet. Add one to get started.</div>';
+    return;
+  }
+  list.innerHTML = cars.map(car => `
+    <div class="admin-fleet-row">
+      <div class="admin-thumb" style="background-image: url('${escapeAttr(car.photo)}')"></div>
+      <div>
+        <div class="admin-info-name">${escapeHtml(car.name)}</div>
+        <div class="admin-info-year">${car.year} · ${escapeHtml(car.desc.slice(0, 60))}${car.desc.length > 60 ? '…' : ''}</div>
+      </div>
+      <div class="admin-info-year">ID: ${car.id}</div>
+      <div class="admin-price-edit">
+        <span>₹</span>
+        <input type="number" value="${car.rate}" min="0" data-car="${car.id}" onchange="updateRate('${car.id}', this.value)" />
+        <span style="font-size:0.72rem;color:var(--ink-soft)">/day</span>
+      </div>
+      <div class="admin-actions">
+        <button class="btn-secondary" style="padding:0.4rem 0.7rem;font-size:0.72rem" onclick="openEditCar('${car.id}')">Edit</button>
+        <button class="btn-danger" onclick="deleteCar('${car.id}')">Remove</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function updateRate(carId, newRate) {
+  const car = cars.find(c => c.id === carId);
+  if (!car) return;
+  const n = parseInt(newRate, 10);
+  if (isNaN(n) || n < 0) return;
+  car.rate = n;
+  saveCars();
+  renderFleet();  // instant update to public gallery
+  toast('Price updated — live on gallery');
+}
+
+function openAddCar() {
+  document.getElementById('carEditTitle').innerHTML = 'Add <em>Vehicle</em>';
+  document.getElementById('editCarId').value = '';
+  document.getElementById('editCarName').value = '';
+  document.getElementById('editCarYear').value = '';
+  document.getElementById('editCarDesc').value = '';
+  document.getElementById('editCarRate').value = '';
+  document.getElementById('editCarPhoto').value = '';
+  document.getElementById('editCarPhotoUrl').value = '';
+  openModal('carEditModal');
+}
+
+function openEditCar(carId) {
+  const car = cars.find(c => c.id === carId);
+  if (!car) return;
+  document.getElementById('carEditTitle').innerHTML = 'Edit <em>Vehicle</em>';
+  document.getElementById('editCarId').value = car.id;
+  document.getElementById('editCarName').value = car.name;
+  document.getElementById('editCarYear').value = car.year;
+  document.getElementById('editCarDesc').value = car.desc;
+  document.getElementById('editCarRate').value = car.rate;
+  document.getElementById('editCarPhoto').value = '';
+  document.getElementById('editCarPhotoUrl').value = car.photo || '';
+  openModal('carEditModal');
+}
+
+async function saveCar(e) {
+  e.preventDefault();
+  const id = document.getElementById('editCarId').value || ('c' + Date.now());
+  const name = document.getElementById('editCarName').value.trim();
+  const year = parseInt(document.getElementById('editCarYear').value, 10);
+  const desc = document.getElementById('editCarDesc').value.trim();
+  const rate = parseInt(document.getElementById('editCarRate').value, 10);
+  const photoFile = document.getElementById('editCarPhoto').files[0];
+  const photoUrl = document.getElementById('editCarPhotoUrl').value.trim();
+
+  let photo = photoUrl;
+  if (photoFile) {
+    photo = await fileToDataUrl(photoFile);
+  } else if (!photo) {
+    const existing = cars.find(c => c.id === id);
+    photo = existing ? existing.photo : '';
+  }
+
+  const existing = cars.findIndex(c => c.id === id);
+  const car = { id, name, year, desc, rate, photo };
+  if (existing >= 0) cars[existing] = car;
+  else cars.push(car);
+
+  saveCars();
+  renderFleet();
+  renderAdminFleet();
+  closeModal('carEditModal');
+  toast(existing >= 0 ? 'Vehicle updated' : 'Vehicle added to fleet');
+}
+
+function deleteCar(carId) {
+  const car = cars.find(c => c.id === carId);
+  if (!car) return;
+  if (!confirm(`Remove "${car.name}" from the fleet? It will no longer appear in the public gallery.`)) return;
+  cars = cars.filter(c => c.id !== carId);
+  saveCars();
+  renderFleet();
+  renderAdminFleet();
+  toast('Vehicle removed from fleet', 'danger');
+}
+
+function renderAdminBookings() {
+  document.getElementById('bookingCount').textContent = `(${bookings.length})`;
+  const list = document.getElementById('adminBookingsList');
+  if (!bookings.length) {
+    list.innerHTML = '<div class="empty-state">No reservations yet. They will appear here as customers book.</div>';
+    return;
+  }
+  list.innerHTML = bookings.map(b => `
+    <div class="booking-card">
+      <div class="booking-card-head">
+        <div>
+          <div class="booking-customer">${escapeHtml(b.customer)}</div>
+          <div class="booking-contact">${escapeHtml(b.phone)} · ${escapeHtml(b.email)}</div>
+        </div>
+        <div class="booking-ref-small">${b.ref}</div>
+      </div>
+      <div class="booking-details">
+        <div>
+          <div class="booking-detail-label">Vehicle</div>
+          <div class="booking-detail-value">${b.carYear} ${escapeHtml(b.carName)}</div>
+        </div>
+        <div>
+          <div class="booking-detail-label">Pickup</div>
+          <div class="booking-detail-value">${formatDate(b.pickup)}</div>
+        </div>
+        <div>
+          <div class="booking-detail-label">Return</div>
+          <div class="booking-detail-value">${formatDate(b.return)}</div>
+        </div>
+        <div>
+          <div class="booking-detail-label">Driver</div>
+          <div class="booking-detail-value">
+            <span class="driver-pill ${b.driver === 'self' ? 'self' : 'chauffeur'}">
+              ${b.driver === 'self' ? 'Self-Drive' : 'With Chauffeur'}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ---------- UTILITIES ----------
+function openModal(id) { document.getElementById(id).classList.add('active'); document.body.style.overflow = 'hidden'; }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); document.body.style.overflow = ''; }
+function escapeHtml(s) { return String(s ?? '').replace(/[&<>"']/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m])); }
+function escapeAttr(s) { return escapeHtml(s).replace(/`/g, '&#96;'); }
+function formatNum(n) { return Number(n).toLocaleString('en-IN'); }
+function formatDate(s) { return new Date(s).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }); }
+function fileToDataUrl(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = e => res(e.target.result);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+function toast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.toggle('danger', type === 'danger');
+  t.classList.add('show');
+  clearTimeout(window._toastT);
+  window._toastT = setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+// ---------- NAV SCROLL ----------
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 30);
+});
+
+// click outside modal to close
+document.querySelectorAll('.modal-backdrop').forEach(bg => {
+  bg.addEventListener('click', e => { if (e.target === bg) closeModal(bg.id); });
+});
+
+// ---------- INIT ----------
+loadData();
+renderFleet();
+</script>
+</body>
+</html>
